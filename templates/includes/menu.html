@@ -1,0 +1,53 @@
+<div id="layout-menu">
+    <h2 id="aria-label-tasknav" class="voice"><roundcube:label name="arialabeltasknav" /></h2>
+    <div class="popover-header">
+        <roundcube:object name="logo" src="/images/logo.svg" id="logo" alt="Logo" />
+        <a class="button icon cancel"><span class="inner"><roundcube:label name="close" /></span></a>
+    </div>
+    <div id="taskmenu" class="menu toolbar" role="navigation" aria-labelledby="aria-label-tasknav">
+        <roundcube:if condition="env:action == 'compose' and env:task == 'mail'" />
+            <roundcube:button command="mail" label="mail" type="link" innerClass="inner"
+                class="mail" style="margin-bottom: 2px; color: black;" />
+        <roundcube:else />
+            <roundcube:button command="mail" label="mail" type="link" innerClass="inner"
+                class="mail" style="margin-bottom: 2px;" />
+        <roundcube:endif />
+        <roundcube:button command="addressbook" label="contacts" type="link" innerClass="inner"
+            class="contacts" style="margin-bottom: 2px;" />
+        <roundcube:container name="taskbar" id="taskmenu" />
+        <roundcube:button command="settings" label="settings" type="link" innerClass="inner"
+            class="settings" style="margin-bottom: 2px;" />
+        <span class="special-buttons" style="margin-top: 2px;">
+            <roundcube:if condition="config:dark_mode_support" />
+                <roundcube:add_label name="darkmode" />
+                <roundcube:add_label name="lightmode" />
+                <roundcube:button name="theme" label="darkmode" type="link" innerClass="inner"
+                    class="theme dark" style="margin-bottom: 2px;" />
+            <roundcube:endif />
+            <roundcube:button name="about" label="about" type="link"
+                class="about" innerClass="inner" style="margin-bottom: 2px;" onclick="UI.about_dialog(this)" />
+            <roundcube:button command="logout" label="logout" type="link"
+                class="logout" innerClass="inner" style="margin-bottom: 2px;" />
+        </span>
+    </div>
+</div>
+
+<style>
+    /* Hide layout-menu on large devices (screens larger than 768px) */
+    @media (min-width: 768px) {
+        #layout-menu {
+            display: none;
+        }
+    }
+
+    /* Show layout-menu on small devices (screens smaller than 768px) */
+    @media (max-width: 767px) {
+        #layout-menu {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+            background-color: #f9f9f9;
+        }
+    }
+</style>

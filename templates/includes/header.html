@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Header</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Material UI Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="bg-gray-300">
+    <!-- Header -->
+    <div id="hhh" class="flex items-center justify-between shadow-md px-4 py-3">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3">
+            <img 
+            src="/images/logo.png"
+                alt="logo"  
+                class="h-12 cursor-pointer hover:opacity-80" 
+            />
+        </div>
+        <span class="header-title username text-lg font-bold ml-10">
+            <roundcube:object name="username" />
+        </span>
+
+        <!-- Search Bar -->
+        <div class="flex-grow flex justify-center">
+            <div class="w-2/3 md:w-1/3">
+                <roundcube:object 
+                    name="searchform" 
+                    id="mailsearchform" 
+                    wrapper="searchbar menu" 
+                    label="mailquicksearchbox" 
+                    buttontitle="findmail" 
+                    options="searchmenu" 
+                    ariatag="h2" 
+                />
+            </div>
+        </div>
+
+        <!-- Icons and Profile -->
+        <div class="flex items-center space-x-4">
+            <!-- Mail Icon -->
+            <span class="material-icons text-gray-600 cursor-pointer hover:bg-gray-200 rounded-full p-2 transition duration-200">
+                <roundcube:button command="mail" type="link" style="hover:color; color: gray; text-decoration: none;" />
+            </span>
+            <!-- Theme Icon -->
+            <span 
+                id="theme-toggle" 
+                class="material-icons cursor-pointer hover:bg-gray-200 rounded-full p-2 transition duration-200" 
+                onclick="toggleTheme()"
+                style="hover:color; color: gray; text-decoration: none;"
+            >
+                dark_mode
+            </span>
+            <!-- Settings Icon -->
+            <span class="material-icons text-gray-600 cursor-pointer hover:bg-gray-200 rounded-full p-2 transition duration-200">
+                <roundcube:button command="settings" type="link" style="color: gray; text-decoration: none;" />
+            </span>
+            <!-- Menu Icon -->
+            <span 
+                id="dropdown-toggle" 
+                class="material-icons text-gray-600 cursor-pointer hover:bg-gray-200 rounded-full p-2 transition duration-200">
+                menu
+            </span>
+        </div>
+    </div>
+   
+    <!-- Dropdown Menu -->
+    <div 
+        id="dropdown-menu" 
+        class="hidden absolute top-16 right-4 bg-white shadow-lg rounded-lg w-48 py-2 z-50">
+       <roundcube:button command="addressbook" label="contacts" type="link" innerClass="inner"
+			class="contacts block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded transition" classSel="contacts selected" style="text-decoration: none;" />
+            <span class="block px-4 py-2 hover:bg-gray-100 rounded transition" style="text-decoration: none;"><roundcube:container name="taskbar" id="taskmenu"  /></span>
+      
+       <roundcube:button name="about" label="about" type="link" class="about block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded transition" style="text-decoration: none;"
+       innerClass="inner" onclick="UI.about_dialog(this)" /></a>
+        <hr class="my-2 border-gray-200" />
+         <roundcube:button command="logout" label="logout" type="link"
+            class="logout block px-4 py-2 text-red-600 hover:bg-red-100 rounded transition" innerClass="inner" style="text-decoration: none;" />
+    </div>
+
+    <script>
+        // Toggle Dark Mode and Light Mode
+        function toggleTheme() {
+            const htmlElement = document.documentElement;
+            const themeIcon = document.getElementById('theme-toggle');
+
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark'); // Switch to light mode
+                themeIcon.textContent = 'dark_mode'; // Show dark mode icon
+            } else {
+                htmlElement.classList.add('dark'); // Switch to dark mode
+                themeIcon.textContent = 'light_mode'; // Show light mode icon
+            }
+        }
+
+        // Toggle Dropdown Menu
+        document.getElementById('dropdown-toggle').addEventListener('click', () => {
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        // Close Dropdown Menu on Outside Click
+        document.addEventListener('click', (event) => {
+            const dropdownToggle = document.getElementById('dropdown-toggle');
+            const dropdownMenu = document.getElementById('dropdown-menu');
+
+            if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+    </script>
+
+    <style>
+        /* Responsive adjustments for layout-menu */
+        @media (max-width: 768px) {
+            #hhh {
+                display: none;
+                box-shadow: inset;
+            }
+        }
+
+        @media (min-width: 767px) {
+            #hhh {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        #mailsearchform {
+            border-radius: 20px;
+        }
+    </style>
+</body>
+</html>
