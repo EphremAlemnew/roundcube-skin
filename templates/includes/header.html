@@ -11,7 +11,7 @@
 </head>
 <body class="bg-gray-300">
     <!-- Header -->
-    <div id="hhh" class="flex items-center justify-between shadow-md px-4 py-3">
+    <div id="hhh" class="flex items-center justify-between shadow-md px-4 py-3" >
         <!-- Logo -->
         <div class="flex items-center space-x-3">
             <img 
@@ -20,7 +20,7 @@
                 class="h-12 cursor-pointer hover:opacity-80" 
             />
         </div>
-        <span class="header-title username text-lg font-bold ml-10">
+        <span class="header-title username text-lg font-bold ml-10" style="color: gray;">
             <roundcube:object name="username" />
         </span>
 
@@ -45,15 +45,7 @@
             <span class="material-icons text-gray-600 cursor-pointer hover:bg-gray-200 rounded-full p-2 transition duration-200">
                 <roundcube:button command="mail" type="link" style="hover:color; color: gray; text-decoration: none;" />
             </span>
-            <!-- Theme Icon -->
-            <span 
-                id="theme-toggle" 
-                class="material-icons cursor-pointer hover:bg-gray-200 rounded-full p-2 transition duration-200" 
-                onclick="toggleTheme()"
-                style="hover:color; color: gray; text-decoration: none;"
-            >
-                dark_mode
-            </span>
+
             <!-- Settings Icon -->
             <span class="material-icons text-gray-600 cursor-pointer hover:bg-gray-200 rounded-full p-2 transition duration-200">
                 <roundcube:button command="settings" type="link" style="color: gray; text-decoration: none;" />
@@ -65,22 +57,36 @@
                 menu
             </span>
         </div>
+        <div 
+        id="dropdown-menu" 
+        class="hidden absolute top-16 right-4 bg-gray-300 shadow-lg rounded-lg w-48 py-2 z-50">
+        <span class="block px-4 py-2 hover:bg-gray-100 rounded transition" >
+            <roundcube:button command="addressbook" label="contacts" type="link" innerClass="inner" class="contacts" classSel="contacts selected" style="text-decoration: none; color: gray;"  />
+        </span>
+       
+            <span class="block px-4 py-2 hover:bg-gray-100 rounded transition" style="text-decoration: none;"><roundcube:container name="taskbar" id="taskmenu" style="color: gray; text-decoration: none;"  /></span>
+            <div id="taskmenu"  role="navigation" class="block px-4 py-2 hover:bg-gray-100 rounded transition" style="text-decoration: none; color: gray;">
+                 <roundcube:button name="theme" label="darkmode" type="link" innerClass="inner" class="theme  bg-gray-300 hover:bg-gray-300 rounded transition" style="text-decoration: none; color: gray; background-color: #d1d5db; "/>
+            </div>
+           
+       <roundcube:button name="about" label="about" type="link" class="about block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded transition" style="text-decoration: none; color: gray;"
+       innerClass="inner" onclick="UI.about_dialog(this)" /></a>
+       <h3 class="block px-4 py-2 rounded transition" style="text-decoration: none; color: gray;">Header color mode</h3>
+       <div class="block px-4 py-2 flex space-x-2" style="text-decoration: none; color: gray;" >
+        <span class="w-6 h-6 rounded-full cursor-pointer border border-black hover:opacity-70 transition color-mode" data-color="#fbac33" style="background-color: #fbac33;"></span>
+        <span class="w-6 h-6 rounded-full cursor-pointer border border-black hover:opacity-70 transition color-mode" data-color="#403c3b" style="background-color: #403c3b;"></span>
+        <span class="w-6 h-6 rounded-full cursor-pointer border border-black hover:opacity-70 transition color-mode" data-color="#ef5032" style="background-color: #ef5032;"></span>
+        <span class="w-6 h-6 rounded-full cursor-pointer border border-black hover:opacity-70 transition color-mode" data-color="#0d7af6" style="background-color: #0d7af6;"></span>
+        <span class="w-6 h-6 rounded-full cursor-pointer border border-black hover:opacity-70 transition color-mode" data-color="#d1d5db" style="background-color: #d1d5db;"></span>
+        </div>
+        <hr class="my-2 border-gray-200" />
+         <roundcube:button command="logout" label="logout" type="link"
+            class="logout block px-4 py-2 text-red-600 hover:bg-red-100 rounded transition" innerClass="inner" style="text-decoration: none;" />      
+    </div>
     </div>
    
     <!-- Dropdown Menu -->
-    <div 
-        id="dropdown-menu" 
-        class="hidden absolute top-16 right-4 bg-white shadow-lg rounded-lg w-48 py-2 z-50">
-       <roundcube:button command="addressbook" label="contacts" type="link" innerClass="inner"
-			class="contacts block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded transition" classSel="contacts selected" style="text-decoration: none;" />
-            <span class="block px-4 py-2 hover:bg-gray-100 rounded transition" style="text-decoration: none;"><roundcube:container name="taskbar" id="taskmenu"  /></span>
-      
-       <roundcube:button name="about" label="about" type="link" class="about block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded transition" style="text-decoration: none;"
-       innerClass="inner" onclick="UI.about_dialog(this)" /></a>
-        <hr class="my-2 border-gray-200" />
-         <roundcube:button command="logout" label="logout" type="link"
-            class="logout block px-4 py-2 text-red-600 hover:bg-red-100 rounded transition" innerClass="inner" style="text-decoration: none;" />
-    </div>
+    
 
     <script>
         // Toggle Dark Mode and Light Mode
@@ -112,6 +118,30 @@
                 dropdownMenu.classList.add('hidden');
             }
         });
+
+        // Save and Restore Color Mode
+        function saveColorMode(color) {
+            localStorage.setItem('selectedColor', color);
+        }
+
+        function restoreColorMode() {
+            const savedColor = localStorage.getItem('selectedColor');
+            if (savedColor) {
+                document.getElementById('hhh').style.backgroundColor = savedColor;
+            }
+        }
+
+        // Change Header Color on Color Mode Click
+        document.querySelectorAll('.color-mode').forEach(item => {
+            item.addEventListener('click', (event) => {
+                const color = event.target.dataset.color;
+                document.getElementById('hhh').style.backgroundColor = color;
+                saveColorMode(color);
+            });
+        });
+
+        // Restore color mode on page load
+        document.addEventListener('DOMContentLoaded', restoreColorMode);
     </script>
 
     <style>

@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><roundcube:object name="productname" /> - <roundcube:label name="login" /></title>
     <!-- Tailwind CSS CDN -->
-   
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <script>
         // Enable dark mode using class strategy
         tailwind.config = {
@@ -15,7 +16,7 @@
     <!-- Google Font (Beautiful Font) -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Custom CSS (Optional for additional styles) -->
-    <link rel="stylesheet" href="/skins/elastic/styles/custom.css">
+   
     <style>
         /* Toast Styles */
         #toast-message {
@@ -63,47 +64,60 @@
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
 }
+
 </style>
+
 </head>
 <body class="bg-gray-100 bg-gradient-to-r from-slate-400 to-slate-700 dark:bg-gray-800 flex items-center justify-center min-h-screen">
-<div class="max-w-md w-full bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8">
-<!-- Logo Section -->
-<div class="flex justify-center mb-6">
-	<roundcube:object name="logo"  src="http://172.20.101.53/erganew/skins/elastic/images/photo_2023-08-15_08-38-17-removebg-preview.png?s=1708675376"  id="logo" alt="Logo" class="h-16 w-16" />
-</div>
-<!-- Login Form -->
-<h1 class="text-2xl font-bold text-center text-gray-700 dark:text-gray-200 mb-4">
-	<roundcube:object name="productname" /> <roundcube:label name="login" />
-</h1>
-<roundcube:form id="login-form" name="login-form" method="post" class="space-y-4">
-	<div>
-		<roundcube:object name="loginform" form="login-form" size="40" submit=false
-class="block w-full p-3 m-1 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-nonedark:bg-gray-800 dark:text-gray-200" />
-	</div>
-	<button id="login-btn" type="submit"
-class="w-full ml-1 bg-orange-500 text-white p-3 rounded-lg hover:bg-orange-700 focus:ring-2 focus:ring-blue-400 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800 flex items-center justify-center">
-		<span id="btn-text">Login</span>
-		<div id="spinner" class="spinner hidden ml-3"></div> <!-- Spinner -->
-	</button>
-</roundcube:form>
+    
+<div class="max-w-4xl w-full bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8">
+    <!-- Flex container for logo and form -->
+    <div class="flex justify-between items-center">
+        <!-- Logo Section -->
+        <div class="flex justify-center  w-1/2">
+            <roundcube:object name="logo"  src="/images/logo.png"  id="logo" alt="Logo" class="m-10" />
+        </div>
+        <!-- Login Form -->
+        <div class="w-1/2 m-3">
+            <h1 class="text-2xl font-bold text-center text-gray-700 dark:text-gray-200 mb-4">
+                <roundcube:object name="productname" /> <roundcube:label name="login" />
+            </h1>
+            <roundcube:form id="login-form" name="login-form" method="post" class="space-y-4">
+                <div>
+                    <roundcube:object name="loginform" form="login-form" size="50" submit=false
+                        class="block w-full p-3 m-1 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-nonedark:bg-gray-800 dark:text-gray-200" />
+                </div>
+                <button id="login-btn" type="submit"
+                        class="ml-1 w-full bg-orange-600 text-white p-3 rounded-lg hover:bg-orange-500 focus:ring-2 focus:ring-blue-400 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800 flex items-center justify-center">
+                    <span id="btn-text">Login</span>
+                    <div id="spinner" class="spinner hidden ml-3"></div> <!-- Spinner -->
+                </button>
+                <a href="#" id="login-btn" type="submit"
+                        class="ml-1 w-full bg-gray-900 text-white p-3 rounded-lg hover:bg-gray-500 focus:ring-2 focus:ring-blue-400 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800 flex items-center justify-center">
+                    <span id="btn-text">Login with INSA Account</span>
+                    <div id="spinner" class="spinner hidden ml-3"></div> <!-- Spinner -->
+            </a>
+            </roundcube:form>
+        </div>
+    </div>
 
-<!-- Footer Info -->
-<div id="login-footer" class="text-center text-gray-500 dark:text-gray-400 mt-6">
-	<roundcube:object name="productname" condition="config:display_product_info &gt; 0" />
-	<roundcube:object name="version" condition="config:display_product_info == 2" />
-	<roundcube:if condition="config:support_url" />
-		&nbsp;&bull;&nbsp;
-		<a href="<roundcube:var name='config:support_url' />" target="_blank" class="text-blue-600 hover:underline dark:text-blue-400">
-			Support
-		</a>
-	<roundcube:endif />
-	<roundcube:container name="loginfooter" id="login-footer" />
+    <!-- Footer Info -->
+    <div id="login-footer" class="text-center text-gray-500 dark:text-gray-400 mt-6">
+        <roundcube:object name="productname" condition="config:display_product_info &gt; 0" />
+        <roundcube:object name="version" condition="config:display_product_info == 2" />
+        <roundcube:if condition="config:support_url" />
+            &nbsp;&bull;&nbsp;
+            <a href="<roundcube:var name='config:support_url' />" target="_blank" class="text-blue-600 hover:underline dark:text-blue-400">
+                Support
+            </a>
+        <roundcube:endif />
+        <roundcube:container name="loginfooter" id="login-footer" />
 
-	<!-- Dynamic "All Rights Reserved" Text -->
-	<div id="rights-reserved" class="mt-4 text-gray-500 dark:text-gray-400">
-		&copy; <span id="current-year"></span> All Rights Reserved
-	</div>
-</div>
+        <!-- Dynamic "All Rights Reserved" Text -->
+        <div id="rights-reserved" class="mt-4 text-gray-500 dark:text-gray-400">
+            &copy; <span id="current-year"></span> All Rights Reserved
+        </div>
+    </div>
 </div>
 
 <!-- NoScript Warning -->
@@ -120,32 +134,32 @@ class="w-full ml-1 bg-orange-500 text-white p-3 rounded-lg hover:bg-orange-700 f
 
 <!-- JavaScript to show and hide the toast message -->
 <script>
-	// Function to show the toast message
-	const showToast = () => {
-		const toast = document.getElementById('toast-message');
-		toast.classList.remove('hide');
-		toast.classList.add('show');
-		// Hide the toast after 4 seconds
-		setTimeout(() => {
-			toast.classList.remove('show');
-			toast.classList.add('hide');
-		}, 4000);
-	};
+    // Function to show the toast message
+    const showToast = () => {
+        const toast = document.getElementById('toast-message');
+        toast.classList.remove('hide');
+        toast.classList.add('show');
+        // Hide the toast after 4 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            toast.classList.add('hide');
+        }, 4000);
+    };
 
-	// Trigger the toast message display
-	<roundcube:if condition="!env:framed || env:extwin" />
-		showToast();
-	<roundcube:endif />
+    // Trigger the toast message display
+    <roundcube:if condition="!env:framed || env:extwin" />
+        showToast();
+    <roundcube:endif />
 
-	// Show loading spinner and hide the button text
-	document.getElementById('login-form').onsubmit = function() {
-		document.getElementById('btn-text').classList.add('hidden'); // Hide the text
-		document.getElementById('spinner').classList.remove('hidden'); // Show the spinner
-	};
+    // Show loading spinner and hide the button text
+    document.getElementById('login-form').onsubmit = function() {
+        document.getElementById('btn-text').classList.add('hidden'); // Hide the text
+        document.getElementById('spinner').classList.remove('hidden'); // Show the spinner
+    };
 
-	// Dynamically update the year for "All Rights Reserved"
-	const currentYear = new Date().getFullYear();
-	document.getElementById('current-year').innerText = currentYear;
+    // Dynamically update the year for "All Rights Reserved"
+    const currentYear = new Date().getFullYear();
+    document.getElementById('current-year').innerText = currentYear;
 </script>
 
 <script src="/deps/bootstrap.bundle.min.js"></script>
