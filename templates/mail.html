@@ -78,29 +78,35 @@
 </div>
 
 <!-- messages list -->
-<div id="layout-list" class="listbox selected m-2 mr-0 rounded-lg shadow-lg" >
-	<div id="messagelist-header" class="header">
-		<a class="button icon task-menu-button" href="#menu"><span class="inner"><roundcube:label name="menu" /></span></a>
-		<a class="button icon back-sidebar-button folders" href="#sidebar"><span class="inner"><roundcube:label name="mailboxlist" /></span></a>
-		<span class="header-title"></span>
-		<div class="toolbar menu" role="toolbar">
-			<a href="#select" class="select disabled" data-popup="listselect-menu" data-toggle-button="list-toggle-button" title="<roundcube:label name="select" />"><span class="inner"><roundcube:label name="select" /></span></a>
-			<roundcube:if condition="env:threads" />
-				<a href="#threads" class="threads disabled" data-popup="threadselect-menu" title="<roundcube:label name="threads" />"><span class="inner"><roundcube:label name="threads" /></span></a>
-			<roundcube:endif />
-			<roundcube:object name="listmenulink" class="options active" label="options" innerclass="inner" />
-			<roundcube:container name="listcontrols" id="listcontrols" />
+<div id="layout-list" class="listbox selected m-2 mr-0 rounded-xl  shadow-lg" >
+	<div class="justify-between flex">
+		<div id="messagelist-header" class="flex p-2">
+			<a class="button icon task-menu-button" href="#menu"><span class="inner"><roundcube:label name="menu" /></span></a>
+			<a class="button icon back-sidebar-button folders" href="#sidebar"><span class="inner"><roundcube:label name="mailboxlist" /></span></a>
+			<span class="header-title"></span>
+			<div class="toolbar menu" role="toolbar">
+				<a href="#select" class="select disabled" data-popup="listselect-menu" data-toggle-button="list-toggle-button" title="<roundcube:label name="select" />"><span class="inner"><roundcube:label name="select" /></span></a>
+				<roundcube:if condition="env:threads" />
+					<a href="#threads" class="threads disabled" data-popup="threadselect-menu" title="<roundcube:label name="threads" />"><span class="inner"><roundcube:label name="threads" /></span></a>
+				<roundcube:endif />
+				<roundcube:object name="listmenulink" class="options active" label="options" innerclass="inner" />
+				<roundcube:container name="listcontrols" id="listcontrols" />
+			</div>
+			<roundcube:button command="checkmail" type="link" class="button icon toolbar-button refresh"
+				label="refresh" title="checkmail" innerclass="inner" />
+			
 		</div>
-		<roundcube:button command="checkmail" type="link" class="button icon toolbar-button refresh"
-			label="refresh" title="checkmail" innerclass="inner" />
-		<a class="button icon toolbar-menu-button" href="#list-menu"><span class="inner"><roundcube:label name="menu" /></span></a>
-		<roundcube:button name="folderactions" type="link" title="folderactions" label="actions" class="button icon sidebar-menu text-gray-600 cursor-pointer mt-0" 
-		innerclass="inner" data-popup="mailboxoptions-menu" />
+		<div class="p-2">
+			<a class="button icon toolbar-menu-button" href="#list-menu"><span class="inner"><roundcube:label name="menu" /></span></a>
+			<roundcube:button name="folderactions" type="link" title="folderactions" label="actions" class="button icon sidebar-menu text-gray-600 cursor-pointer mt-0" 
+			innerclass="inner" data-popup="mailboxoptions-menu" />
+		</div>
 	</div>
+	
 	<roundcube:add_label name="showunread" />
 	<!-- <roundcube:object name="searchform" id="mailsearchform" wrapper="searchbar menu"
 		label="mailquicksearchbox" buttontitle="findmail" options="searchmenu" ariatag="h2" /> -->
-	<div id="searchmenu" class="hidden searchoptions scroller propform formcontainer" aria-labelledby="aria-label-search-menu" aria-controls="messagelist">
+	<div id="searchmenu" class="hidden searchoptions propform formcontainer" aria-labelledby="aria-label-search-menu" aria-controls="messagelist">
 		<h3 id="aria-label-search-menu" class="voice"><roundcube:label name="searchmod" /></h3>
 		<div class="formcontent">
 			<ul class="proplist">
@@ -149,13 +155,13 @@
 </div>
 
 <!-- message preview -->
-<div id="layout-content" class="m-2 rounded shadow-sm">
+<div id="layout-content" class="m-2 rounded-xl shadow-sm">
 	<h2 id="aria-label-toolbar" class="voice"><roundcube:label name="arialabeltoolbar" /></h2>
-	<div class="header" role="toolbar" aria-labelledby="aria-label-toolbar">
+	<!-- <div class="header" role="toolbar" aria-labelledby="aria-label-toolbar">
 		<a class="button icon back-list-button" href="#back"><span class="inner"><roundcube:label name="back" /></span></a>
 		<span class="header-title"></span>
 		<roundcube:include file="includes/mail-menu.html" />
-	</div>
+	</div> -->
 	<h2 id="aria-label-mailpreviewframe" class="voice"><roundcube:label name="arialabelmailpreviewframe" /></h2>
 	<div class="iframe-wrapper">
 		<roundcube:object name="contentframe"
