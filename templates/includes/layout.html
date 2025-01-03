@@ -47,8 +47,9 @@
         height: 100vh; /* Full height of viewport */
     }
 	</style>
+	<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="task-<roundcube:exp expression="env:error_task ?: env:task ?: 'error'"> action-<roundcube:exp expression="asciiwords(env:action, true, '-') ?: 'none'">">
+<body class=" rounded-full text-sm bg-slate-300 task-<roundcube:exp expression="env:error_task ?: env:task ?: 'error'"> action-<roundcube:exp expression="asciiwords(env:action, true, '-') ?: 'none'">">
 	<roundcube:if condition="!env:framed || env:extwin" />
 		<div id="<roundcube:exp expression="env:action == 'print' ? 'print-' : ''">layout">
 	<roundcube:endif />
