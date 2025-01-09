@@ -70,54 +70,57 @@
 </head>
 <body class="bg-gray-100 bg-gradient-to-r from-slate-400 to-slate-700 dark:bg-gray-800 flex items-center justify-center min-h-screen">
     
-<div class="max-w-4xl w-full bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8">
-    <!-- Flex container for logo and form -->
-    <div class="flex justify-between items-center">
-        <!-- Logo Section -->
-        <div class="flex justify-center  w-1/2">
-            <roundcube:object name="logo"  src="/images/logo.png"  id="logo" alt="Logo" class="m-10" />
+    <div class="max-w-4xl w-full bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8">
+        <!-- Flex container for logo and form -->
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <!-- Logo Section -->
+            <div class="flex justify-center w-full md:w-1/2 mb-4 md:mb-0">
+                <roundcube:object name="logo" src="/images/logo.png" id="logo" alt="Logo" class="m-10" />
+            </div>
+            <!-- Login Form -->
+            <div class="w-full md:w-1/2 m-3">
+                <h1 class="text-2xl font-bold text-center text-gray-700 dark:text-gray-200 mb-4">
+                    <roundcube:object name="productname" /> <roundcube:label name="login" />
+                </h1>
+                <roundcube:form id="login-form" name="login-form" method="post" class="space-y-4">
+                    <div>
+                        <roundcube:object name="loginform" form="login-form" size="50" submit=false
+                            class="block w-full p-3 m-1 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-800 dark:text-gray-200" />
+                    </div>
+                    <button id="login-btn" type="submit"
+                            class="ml-1 w-full bg-orange-600 text-white p-3 rounded-lg hover:bg-orange-500 focus:ring-2 focus:ring-blue-400 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800 flex items-center justify-center">
+                        <span id="btn-text">Login</span>
+                        <div id="spinner" class="spinner hidden ml-3"></div> <!-- Spinner -->
+                    </button>
+                    <a href="#" id="login-btn" type="submit"
+                            class="ml-1 w-full bg-gray-900 text-white p-3 rounded-lg hover:bg-gray-500 focus:ring-2 focus:ring-blue-400 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800 flex items-center justify-center">
+                        <span id="btn-text">Login with INSA Account</span>
+                        <div id="spinner" class="spinner hidden ml-3"></div> <!-- Spinner -->
+                    </a>
+                </roundcube:form>
+            </div>
         </div>
-        <!-- Login Form -->
-        <div class="w-1/2 m-3">
-            <h1 class="text-2xl font-bold text-center text-gray-700 dark:text-gray-200 mb-4">
-                <roundcube:object name="productname" /> <roundcube:label name="login" />
-            </h1>
-            <roundcube:form id="login-form" name="login-form" method="post" class="space-y-4">
-                <div>
-                    <roundcube:object name="loginform" form="login-form" size="50" submit=false
-                        class="block w-full p-3 m-1 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-nonedark:bg-gray-800 dark:text-gray-200" />
-                </div>
-                <button id="login-btn" type="submit"
-                        class="ml-1 w-full bg-orange-600 text-white p-3 rounded-lg hover:bg-orange-500 focus:ring-2 focus:ring-blue-400 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800 flex items-center justify-center">
-                    <span id="btn-text">Login</span>
-                    <div id="spinner" class="spinner hidden ml-3"></div> <!-- Spinner -->
-                </button>
-                <a href="#" id="login-btn" type="submit"
-                        class="ml-1 w-full bg-gray-900 text-white p-3 rounded-lg hover:bg-gray-500 focus:ring-2 focus:ring-blue-400 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800 flex items-center justify-center">
-                    <span id="btn-text">Login with INSA Account</span>
-                    <div id="spinner" class="spinner hidden ml-3"></div> <!-- Spinner -->
-            </a>
-            </roundcube:form>
+        <div id="login-footer" class="text-center text-gray-500 dark:text-gray-400 mt-6">
+            <roundcube:object name="productname" condition="config:display_product_info &gt; 0" />
+            <roundcube:object name="version" condition="config:display_product_info == 2" />
+            <roundcube:if condition="config:support_url" />
+                &nbsp;&bull;&nbsp;
+                <a href="<roundcube:var name='config:support_url' />" target="_blank" class="text-blue-600 hover:underline dark:text-blue-400">
+                    Support
+                </a>
+            <roundcube:endif />
+            <roundcube:container name="loginfooter" id="login-footer" />
+    
+            <!-- Dynamic "All Rights Reserved" Text -->
+            <div id="rights-reserved" class="mt-4 text-gray-500 dark:text-gray-400">
+                &copy; <span id="current-year"></span> All Rights Reserved
+            </div>
         </div>
     </div>
+    
 
     <!-- Footer Info -->
-    <div id="login-footer" class="text-center text-gray-500 dark:text-gray-400 mt-6">
-        <roundcube:object name="productname" condition="config:display_product_info &gt; 0" />
-        <roundcube:object name="version" condition="config:display_product_info == 2" />
-        <roundcube:if condition="config:support_url" />
-            &nbsp;&bull;&nbsp;
-            <a href="<roundcube:var name='config:support_url' />" target="_blank" class="text-blue-600 hover:underline dark:text-blue-400">
-                Support
-            </a>
-        <roundcube:endif />
-        <roundcube:container name="loginfooter" id="login-footer" />
-
-        <!-- Dynamic "All Rights Reserved" Text -->
-        <div id="rights-reserved" class="mt-4 text-gray-500 dark:text-gray-400">
-            &copy; <span id="current-year"></span> All Rights Reserved
-        </div>
-    </div>
+    
 </div>
 
 <!-- NoScript Warning -->
